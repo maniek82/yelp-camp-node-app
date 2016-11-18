@@ -1,8 +1,8 @@
 var Campground = require("../models/campground");
 var Comment = require("../models/comment");
-var middlawareObj={};
+var middlewareObj={};
 
-middlawareObj.checkCampgroundOwnership= function(req,res,next) {
+middlewareObj.checkCampgroundOwnership= function(req,res,next) {
     if(req.isAuthenticated()){
         
            Campground.findById(req.params.id, function(err, foundCampground){
@@ -25,9 +25,9 @@ middlawareObj.checkCampgroundOwnership= function(req,res,next) {
         res.redirect('back');
     }
  
-}
+},
 
-middlawareObj.checkCommentOwnership = function(req,res,next) {
+middlewareObj.checkCommentOwnership = function(req,res,next) {
     if(req.isAuthenticated()){
         
            Comment.findById(req.params.comment_id, function(err, foundComment){
@@ -53,14 +53,15 @@ middlawareObj.checkCommentOwnership = function(req,res,next) {
         req.flash('error','You need to be logged in to do that!');
         res.redirect('back');
     }
-}//function
+},
 
-middlawareObj.isLoggedIn = function(req,res,next) {
+middlewareObj.isLoggedIn = function(req,res,next) {
     if(req.isAuthenticated()) {
         return next();
     }
 
-middlawareObj.isLoggedIn = function(req,res,next) {
+},
+middlewareObj.isLoggedIn = function(req,res,next) {
     if(req.isAuthenticated()) {
         return next();
     }
@@ -68,8 +69,4 @@ middlawareObj.isLoggedIn = function(req,res,next) {
     res.redirect('/login');
 }
 
-
-
-
-
-module.exports = middlawareObj;
+module.exports = middlewareObj;
