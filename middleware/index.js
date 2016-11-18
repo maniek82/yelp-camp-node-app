@@ -31,29 +31,29 @@ middlawareObj.checkCommentOwnership = function(req,res,next) {
     if(req.isAuthenticated()){
         
            Comment.findById(req.params.comment_id, function(err, foundComment){
-            if(err) {
-                res.redirect('back');
-            }else {
-                //foundcamp is a mongoose object , req.user is string wygladaja tak samo nie mozna ich porownac..foundCampground.author.id===req.user._id  ale uzywamy mongoose.equals()
-                
-                if (foundComment.author.id.equals(req.user._id)) {
-                     next();
-                }else {
-                if (foundComment.author.id.equals(req.user._id)) {
-                     next();
-                }else {
-                    req.flash('error','You don\'t have permission to do that!');
+                if(err) {
                     res.redirect('back');
-                }
-                 
-            }
-        });
+                }else {
+                    //foundcamp is a mongoose object , req.user is string wygladaja tak samo nie mozna ich porownac..foundCampground.author.id===req.user._id  ale uzywamy mongoose.equals()
+                    
+                    if (foundComment.author.id.equals(req.user._id)) {
+                         next();
+                    }else {
+                        if (foundComment.author.id.equals(req.user._id)) {
+                             next();
+                        }else {
+                            req.flash('error','You don\'t have permission to do that!');
+                            res.redirect('back');
+                          }
+                     
+                    }
+               }
+           });
     }else {
         req.flash('error','You need to be logged in to do that!');
         res.redirect('back');
     }
- 
-}
+}//function
 
 middlawareObj.isLoggedIn = function(req,res,next) {
     if(req.isAuthenticated()) {
