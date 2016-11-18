@@ -16,9 +16,9 @@ var commentsRoutes   = require("./routes/comments"),
     campgroundsRoutes = require("./routes/campgrounds"),
     authRoutes       = require("./routes/index");
     
-// =====================
+// ===================== 
 // DATABASE CONFIGURATION
-// =====================    
+// =====================     
 mongoose.Promise = global.Promise;  
 app.use(express.static(__dirname+ "/public"));
 mongoose.connect("mongodb://maniek:baza123@ds157677.mlab.com:57677/heroku_05qr2gfn");
