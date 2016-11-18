@@ -18,11 +18,13 @@ var commentsRoutes   = require("./routes/comments"),
     
 // ===================== 
 // DATABASE CONFIGURATION
-// =====================     
+// =====================
 mongoose.Promise = global.Promise;  
 app.use(express.static(__dirname+ "/public"));
-mongoose.connect("mongodb://maniek:baza123@ds157677.mlab.com:57677/heroku_05qr2gfn");
-// mongoose.connect('mongodb://localhost/yelp_camp');
+
+var url = process.env.MONGODB_C9 || process.env.MONGODB_URI ||'mongodb://localhost/yelp_camp'; //default 
+mongoose.connect(url);//database for heroku
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(flash());
@@ -62,6 +64,6 @@ app.use("/campgrounds/:id/comments",commentsRoutes);
 
 
 
-app.listen(process.env.PORT, function(){
+app.listen(process.env.PORT,process.env.IP, function(){
     console.log('YelpCamp app running now');
 });
